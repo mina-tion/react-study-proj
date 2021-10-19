@@ -1,11 +1,30 @@
-import React from "react"
+import React, { useState } from "react"
+import Content from "./Content"
+import RecursiveButton from "./RecursiveButton"
 
 
 const App = (props) => {
-  const handlerOnThirdClick = () => {
-      console.log('3d click here ')
+
+  const [showMode, setShowMode] = useState(true)
+
+  let content = null
+
+  if (showMode) {
+    content = <Content />
   }
-  return <Button onThirdClick={handlerOnThirdClick}/>
+
+  const handlerOnClick = () => {
+    setShowMode(!showMode)
+  }
+
+  return (
+    <div>
+      <RecursiveButton />
+      <button onClick={handlerOnClick}>Show toggle</button>
+      {content}
+    </div>
+  
+  )
 
 }
 
