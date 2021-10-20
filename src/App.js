@@ -1,46 +1,46 @@
 import React, { useState } from "react"
+import City from "./City";
+import CitiesList from "./CitiesList";
 
 
-const App = (props) => {
+const App = () => {
 
-  const [checked, setChecked] = useState(null)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-  const items = ["Apple", "Orange", "Banana"]
+  const [cities, setCities] = useState([
+    {name: "Moskow", description: "capital of Russia"},
+    {name: "Kyiv", description: "capital of Ukraine"},
+    {name: "Toronto", description: "capital of Ontario"},
+    {name: "Tokio", description: "capital of Japan"},])
+
+  const handlerChangeCity = (n, description) => {
+    setCities(cities.map((city, index) => {
+      if(index === n)
+        return {
+          ...city,
+          description
+        }
+        return city
+    }))
+  }
+
+  const handlerSelectCity = (n) => {
+    setCurrentIndex(n)
+  }
+
   return(
-     <ul>
+    <div>
 
-      { items.map((item) => (
-        <li key={item}>
-          <input type="radio" checked={checked === item} onChange={()=>setChecked(item)}/>
-          {item}
-      </li>
-       ))
-      }
-
-     </ul>
+      <City 
+        cities={cities} 
+        onChangeCity={handlerChangeCity} 
+        currentIndex={currentIndex}/>
+      <CitiesList 
+        cities={cities} 
+        onSelectCity={handlerSelectCity}/>
+      
+    </div>
   ) 
-}
 
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       value: "Hi!"
-//     }
-//     this.handlerChange = this.handlerChange.bind(this)
-//   }
-
-//   handlerChange(e) { 
-//     this.setState({
-//       value: e.target.value
-//     })
-//   }
-
-//   render(){
-//     return(
-//       <input value = {this.state.value} onChange={(e) => this.handlerChange(e)}/>
-//     ) 
-//   }
-// }
-
+ }
 export default App;
