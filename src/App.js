@@ -13,7 +13,25 @@ const App = (props) => {
     { id: 4, name: "dgh", surname: "fsdf"},
   ]
 
-  let list = users.map((user) => (<LiUser key={user.id} user={user}/>))
+  const handlerMouseEnter = (user) => {
+    console.log(`${user.name} ${user.surname}`)
+  }
+
+  let list = users.map((user, index) => {
+    const even = index % 2 ===0
+
+    let style = {}
+    if(even) {
+      style = {color: "white", background: "black"}
+    }
+
+    return(
+        <li key={user.id} style={style} onMouseEnter = {()=>handlerMouseEnter(user)}>
+          {user.name} {user.surname}
+        </li>
+      )
+  }
+)
 
   return (
       <ul>
@@ -23,14 +41,5 @@ const App = (props) => {
 
 }
 
-const LiUser = (props) => {
-  const user = props.user
-
-  return (
-    <li>
-      {user.name} {user.surname}
-    </li>
-  )
-}
 
 export default App;
