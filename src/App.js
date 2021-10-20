@@ -3,10 +3,21 @@ import React, { useState } from "react"
 
 const App = (props) => {
 
-  const [value, setValue] = useState("hi!")
+  const [checked, setChecked] = useState(null)
 
+  const items = ["Apple", "Orange", "Banana"]
   return(
-    <input value = {value} onChange={(e)=> setValue(e.target.value)}/>
+     <ul>
+
+      { items.map((item) => (
+        <li key={item}>
+          <input type="radio" checked={checked === item} onChange={()=>setChecked(item)}/>
+          {item}
+      </li>
+       ))
+      }
+
+     </ul>
   ) 
 }
 
