@@ -1,46 +1,25 @@
-import React, { useState } from "react"
-import City from "./City";
-import CitiesList from "./CitiesList";
-
+import React, { useReducer } from "react"
+import { reducer } from "./reducer"
+import {decrement, increment} from "./actions"
 
 const App = () => {
 
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [state, dispatch] = useReducer(reducer, {
+    counter: 1,
+  })
 
-  const [cities, setCities] = useState([
-    {name: "Moskow", description: "capital of Russia"},
-    {name: "Kyiv", description: "capital of Ukraine"},
-    {name: "Toronto", description: "capital of Ontario"},
-    {name: "Tokio", description: "capital of Japan"},])
 
-  const handlerChangeCity = (n, description) => {
-    setCities(cities.map((city, index) => {
-      if(index === n)
-        return {
-          ...city,
-          description
-        }
-        return city
-    }))
-  }
-
-  const handlerSelectCity = (n) => {
-    setCurrentIndex(n)
-  }
-
-  return(
+  return (
     <div>
+      <button onClick = {() => dispatch(decrement(1))}>-1</button>
+      <button onClick = {() => dispatch(decrement(2))}>-2</button>
 
-      <City 
-        cities={cities} 
-        onChangeCity={handlerChangeCity} 
-        currentIndex={currentIndex}/>
-      <CitiesList 
-        cities={cities} 
-        onSelectCity={handlerSelectCity}/>
-      
+      <span>{state.counter}</span>
+
+      <button onClick = {() => dispatch(increment(1))}>+1</button>
+      <button onClick = {() => dispatch(increment(2))}>+2</button>
     </div>
-  ) 
-
- }
+  )
+}
 export default App;
+
